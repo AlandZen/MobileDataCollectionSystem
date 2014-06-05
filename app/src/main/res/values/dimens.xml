@@ -5,5 +5,18 @@
 
     <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
          https://developer.android.com/design/patterns/navigation-drawer.html -->
-    <dimen name="navigation_drawer_width">240dp</dimen>
+    <dimen name="navigation_drawer_width">120dp</dimen>
+
+    <!--登录界面定义-->
+    <!--字体-->
+    <dimen name="login_textview_font_size">25sp</dimen>
+    <dimen name="login_button_font_size">30sp</dimen>
+
+    <!--边距-->
+    <dimen name="login_margin">10dp</dimen>
+    <dimen name="login_textview_account_margin_top">55dp</dimen>
+    <dimen name="login_textview_password_margin_top">25dp</dimen>
+    <dimen name="login_checkbox_remenber_margin_top">150dp</dimen>
+    <dimen name="login_button_margin_bottom">25dp</dimen>
+    <dimen name="login_textview_margin_left">10dp</dimen>
 </resources>

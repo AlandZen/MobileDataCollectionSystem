@@ -1,6 +1,7 @@
 package com.dcs.mobile.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -16,7 +17,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity
@@ -31,6 +34,7 @@ public class MainActivity extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+    private boolean IsLogin=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,22 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        //通过意图对象激活新Activity
+        //if(IsLogin){
+            Intent intent = new Intent();
+            intent.setClass(this,LoginActivity.class);
+            //intent.putExtra("",true); //传递数据
+            //startActivity(intent); //不带返回值
+            startActivityForResult(intent,11); //带返回值
+        //}
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+
+        Toast.makeText(getApplicationContext(),"用户 "+data.getStringExtra("result")+" 登录成功",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -145,5 +165,4 @@ public class MainActivity extends ActionBarActivity
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
-
 }

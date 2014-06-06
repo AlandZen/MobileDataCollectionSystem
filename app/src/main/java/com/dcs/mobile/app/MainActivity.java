@@ -63,8 +63,12 @@ public class MainActivity extends ActionBarActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
-
-        Toast.makeText(getApplicationContext(),"用户 "+data.getStringExtra("result")+" 登录成功",Toast.LENGTH_SHORT).show();
+        String result=data.getStringExtra("result");
+        if (result==null || result.isEmpty()){
+            Toast.makeText(getApplicationContext(), "失败,返回值为空.", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(getApplicationContext(), "用户 "+result+" 登录成功", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

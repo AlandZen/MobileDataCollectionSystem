@@ -202,6 +202,7 @@ public class NavigationDrawerFragment extends Fragment {
         }
     }
 
+    //调用 onAttach方法时,Fragment会被连接到它的父Activity上
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);

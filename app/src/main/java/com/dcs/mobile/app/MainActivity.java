@@ -10,6 +10,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,9 +22,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dcs.mobile.utility.ExitApp;
+import com.dcs.mobile.utility.ServiceManager;
+import com.dcs.mobile.utility.ActivityManager;
+
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+
+    private long mExitTime;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -34,11 +41,11 @@ public class MainActivity extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
-    private boolean IsLogin=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityManager.getAppManager().addActivity(this);
         setContentView(R.layout.activity_main);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -52,24 +59,25 @@ public class MainActivity extends ActionBarActivity
 
         //通过意图对象激活新Activity
         //if(IsLogin){
-            Intent intent = new Intent();
-            intent.setClass(this,LoginActivity.class);
+            //Intent intent = new Intent();
+            //intent.setClass(this,LoginActivity.class);
             //intent.putExtra("",true); //传递数据
             //startActivity(intent); //不带返回值
-            startActivityForResult(intent,11); //带返回值
+            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            //startActivityForResult(intent, 11); //带返回值
         //}
+
     }
 
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
-        String result=data.getStringExtra("result");
-        if (result==null || result.isEmpty()){
+        if (data==null){
             Toast.makeText(getApplicationContext(), "失败,返回值为空.", Toast.LENGTH_SHORT).show();
         }else {
-            Toast.makeText(getApplicationContext(), "用户 "+result+" 登录成功", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "用户 "+data.getStringExtra("result")+" 登录成功", Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -168,5 +176,13 @@ public class MainActivity extends ActionBarActivity
             ((MainActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            ExitApp.Exit();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
